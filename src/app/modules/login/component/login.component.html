@@ -1,10 +1,10 @@
 <div class="login-wrapper">
   <div class="login-form-container">
     <div class="login-form">
-      <form class="form" [formGroup]="formGroup">
+      <form class="form" [formGroup]="loginForm">
         <p class="heading">Login</p>
-        <input class="input" placeholder="Email" type="text" formControlName="email">
-        <input class="input" placeholder="Senha" type="password" formControlName="password">
+        <input class="input" placeholder="Email" type="text" formControlName="Email">
+        <input class="input" placeholder="Senha" type="password" formControlName="Senha">
         <div *ngIf="isSubmitAlert === true">
           <div class="alertButton">
               <p>Esvreva email certo!!</p>

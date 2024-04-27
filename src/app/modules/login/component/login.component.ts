@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {EmailValidator, FormControl, FormGroup, Validators} from '@angular/forms';
+import {EmailValidator, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {HttpClient} from "@angular/common/http";
+import {AuthenticatorServices} from "../../../core/services/auth.service";
+import {User} from "../../../core/models/user.model";
 
 @Component({
   selector: 'app-login',
@@ -7,37 +10,32 @@ import {EmailValidator, FormControl, FormGroup, Validators} from '@angular/forms
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  formGroup: FormGroup;
+  loginForm: FormGroup = new FormGroup({});
   isSubmit = false;
   isSubmitAlert = false;
 
-  // submitValidation(): void {
-  //   if(!Email) {
-  //     console.log("Email não autorizado seu fdp!!");
-  //   } else {
-  //     console.log("Email enviado com Sucesso porra!!");
-  //     this.isSubmit = true
-  //   }
-  // }
-
-  ngOnInit(): void {
-
-  }
+  newUser: User = new User();
 
   // private authenticatorServices: AuthenticatorServices
-  constructor() {
-    this.formGroup = new FormGroup({
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [Validators.required])
+  constructor(
+    private loginService: AuthenticatorServices,
+    private formBuilder: FormBuilder,
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.buildForm(new User());
+  }
+
+  buildForm(user: User) {
+    this.loginForm = this.formBuilder.group({
+      Email: new FormControl(user.Email, [Validators.required, Validators.email]),
+      Senha: new FormControl(user.Senha, [Validators.required]),
     });
   }
 
-  getData(): void {
-
-  }
-
   onSend(): void {
-    if (!this.formGroup.valid)
+    if (!this.loginForm.valid)
     {
       console.error('Obrigatorio preencher campo!!');
       this.isSubmitAlert = true;
@@ -52,7 +50,17 @@ export class LoginComponent implements OnInit {
     this.isSubmit = true;
     this.isSubmitAlert = false;
     console.log('Enviando seguintes dados');
-    console.log(`Email: ${this.formGroup.get('email')?.value}`);
-    console.log(`Senha: ${this.formGroup.get('password')?.value}`);
+    console.log(`Email: ${this.loginForm.get('email')?.value}`);
+    console.log(`Senha: ${this.loginForm.get('password')?.value}`);
+
+    try {
+      this.loginService.login(this.loginForm.value).subscribe(
+        (data) =>{
+          console.log(data);
+        }
+      )
+    } catch(err) {
+      console.log(err);
+    }
   }
 }
