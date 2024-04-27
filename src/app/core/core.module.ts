@@ -5,12 +5,5 @@ import { ApiInterceptor } from "./interceptors/api.interceptor";
 
 @NgModule({
   imports: [CommonModule],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ApiInterceptor,
-      multi: true
-    }
-  ]
 })
 export class CoreModule {}
