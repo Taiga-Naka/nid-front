@@ -3,6 +3,8 @@ import {EmailValidator, FormBuilder, FormControl, FormGroup, Validators} from '@
 import {HttpClient} from "@angular/common/http";
 import {AuthenticatorServices} from "../../../core/services/auth.service";
 import {User} from "../../../core/models/user.model";
+import {NgxSpinnerService} from "ngx-spinner";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-login',
@@ -20,17 +22,20 @@ export class LoginComponent implements OnInit {
   constructor(
     private loginService: AuthenticatorServices,
     private formBuilder: FormBuilder,
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService
   ) {
   }
 
   ngOnInit(): void {
+
     this.buildForm(new User());
   }
 
   buildForm(user: User) {
     this.loginForm = this.formBuilder.group({
-      Email: new FormControl(user.Email, [Validators.required, Validators.email]),
-      Senha: new FormControl(user.Senha, [Validators.required]),
+      Email: new FormControl(user.email, [Validators.required, Validators.email]),
+      Password: new FormControl(user.password, [Validators.required]),
     });
   }
 
@@ -50,17 +55,23 @@ export class LoginComponent implements OnInit {
     this.isSubmit = true;
     this.isSubmitAlert = false;
     console.log('Enviando seguintes dados');
-    console.log(`Email: ${this.loginForm.get('email')?.value}`);
-    console.log(`Senha: ${this.loginForm.get('password')?.value}`);
+    console.log(this.loginForm.value);
 
     try {
+      //this.spinner.show();
       this.loginService.login(this.loginForm.value).subscribe(
         (data) =>{
           console.log(data);
+          this.toastr.success('Usuário Logado!', 'Sucesso!');
+          this.isSubmit = false;
+          this.spinner.hide();
         }
       )
     } catch(err) {
       console.log(err);
+      this.spinner.hide();
+      this.toastr.error('Senha ou e-mail invalidos','Erro!')
+
     }
   }
 }
