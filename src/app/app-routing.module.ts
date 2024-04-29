@@ -8,6 +8,10 @@ const routes: Routes = [
     loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule)
   },
   {
+    path: 'nid',
+    loadChildren: () => import('./modules/nid/nid.module').then(m => m.NidViewModule)
+  },
+  {
     path: '**',
     redirectTo: '',
     canActivate: [AuthGuard]

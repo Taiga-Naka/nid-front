@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {EmailValidator, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {HttpClient} from "@angular/common/http";
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthenticatorServices} from "../../../core/services/auth.service";
 import {User} from "../../../core/models/user.model";
 import {NgxSpinnerService} from "ngx-spinner";
 import {ToastrService} from "ngx-toastr";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -23,7 +23,8 @@ export class LoginComponent implements OnInit {
     private loginService: AuthenticatorServices,
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) {
   }
 
@@ -40,13 +41,11 @@ export class LoginComponent implements OnInit {
   }
 
   onSend(): void {
-    if (!this.loginForm.valid)
-    {
+    if (!this.loginForm.valid) {
       console.error('Obrigatorio preencher campo!!');
       this.isSubmitAlert = true;
 
-      if(this.isSubmitAlert === true)
-      {
+      if (this.isSubmitAlert) {
         console.log('"Aparendo uma letra vermelha de Warning"');
       }
       return;
@@ -57,21 +56,20 @@ export class LoginComponent implements OnInit {
     console.log('Enviando seguintes dados');
     console.log(this.loginForm.value);
 
-    try {
-      //this.spinner.show();
-      this.loginService.login(this.loginForm.value).subscribe(
-        (data) =>{
-          console.log(data);
-          this.toastr.success('Usuário Logado!', 'Sucesso!');
-          this.isSubmit = false;
-          this.spinner.hide();
-        }
-      )
-    } catch(err) {
-      console.log(err);
-      this.spinner.hide();
-      this.toastr.error('Senha ou e-mail invalidos','Erro!')
-
-    }
+    //this.spinner.show();
+    this.loginService.login(this.loginForm.value).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.toastr.success('Usuário Logado!', 'Sucesso!');
+        this.isSubmit = false;
+        this.spinner.hide();
+      },
+      error: (err) => {
+        console.log(err);
+        this.spinner.hide();
+        this.toastr.error('Senha ou e-mail invalidos', 'Erro!');
+        this.router.navigate(['/nid']);
+      }
+    });
   }
 }
