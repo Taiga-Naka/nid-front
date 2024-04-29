@@ -9,6 +9,7 @@ const routes: Route[] = [
   }
 ];
 @NgModule({
-  imports: [RouterModule.forChild(routes)]
+  imports: [RouterModule.forChild(routes)],
+  declarations: []
 })
 export class NidRoutingModule {}
