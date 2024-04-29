@@ -12,5 +12,3 @@ const routes: Route[] = [
   imports: [RouterModule.forChild(routes)]
 })
 export class NidRoutingModule {}
-
-//teste
