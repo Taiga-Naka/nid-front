@@ -1,9 +1,10 @@
 <div class="nid-wrapper">
+  <div class="nid-list-name">
+    <h1>Valor da Despesa</h1>
+  </div>
   <div class="nid-form-container">
-      <form class="form"><!--[formGroup]="loginForm"-->
-        <p class="heading">Relatório de despesas</p>
-        <input class="input" placeholder="R$100,00" type="number" min="1" step="any"> <!--formControlName="Value"-->
-        <button class="btn">Enviar</button> <!--(click)="onSend()"-->
-      </form>
+    <ng-container *ngFor="let item of relatorioDespesas">
+      <div>{{item.valor}}</div>
+    </ng-container>
   </div>
 </div>
