@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {AuthenticatorServices} from "../../../core/services/auth.service";
-import {User} from "../../../core/models/user.model";
-import {NgxSpinnerService} from "ngx-spinner";
-import {ToastrService} from "ngx-toastr";
-import {Router} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthenticatorServices } from "../../../core/services/auth.service";
+import { User } from "../../../core/models/user.model";
+import { NgxSpinnerService } from "ngx-spinner";
+import { ToastrService } from "ngx-toastr";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -61,15 +61,15 @@ export class LoginComponent implements OnInit {
       next: (data) => {
         console.log(data);
         this.toastr.success('Usuário Logado!', 'Sucesso!');
-        this.isSubmit = false;
-        this.spinner.hide();
+        this.router.navigate(['/nid']);
       },
       error: (err) => {
         console.log(err);
-        this.spinner.hide();
         this.toastr.error('Senha ou e-mail invalidos', 'Erro!');
-        this.router.navigate(['/nid']);
       }
+    }).add(() => {
+      this.isSubmit = false;
+      this.spinner.hide();
     });
   }
 }

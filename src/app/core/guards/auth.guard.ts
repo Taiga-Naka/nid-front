@@ -24,21 +24,27 @@ export class AuthGuard {
 
       const jwt = currentUser.token;
       if (jwt) {
+
+        console.log(jwt);
         const tokenPayload: JwtPayload = jwtDecode(jwt);
+
+        console.log(tokenPayload);
 
         //verifica se o token está expirado
         const expired = tokenPayload?.exp && tokenPayload.exp < Date.now() / 1000;
         if (expired) {
           this.authService.logout();
           location.reload();
-          this.router.navigate(["/"]);
+          this.router.navigate(["/login"]);
           return false;
         }
+
+        return true;
       }
     }
 
     // Usuário não está autenticado, redirecione para a página de login
-    this.router.navigate(["/"], {
+    this.router.navigate(["/login"], {
       queryParams: { returnUrl: state.url },
     });
     return false;

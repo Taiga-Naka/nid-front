@@ -1,10 +1,18 @@
-<div class="nid-wrapper">
-  <div class="nid-list-name">
-    <h1>Valor da Despesa</h1>
+<div class="d-flex row col-12">
+  <div class="p-2 flex-fill col-12 p-3">
+    <h1>Relatório de Despesas</h1>
   </div>
-  <div class="nid-form-container">
-    <ng-container *ngFor="let item of relatorioDespesas">
-      <div>{{item.valor}}</div>
-    </ng-container>
+  <div class="mt-2 d-flex">
+    <div class="card col-3" *ngFor="let item of relatorioDespesas">
+      <div class="card-header">
+        {{ item.funcionario.nome }}
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{ item.arquivoPdf }}</h5>
+        <p class="card-text">R$ {{ item.valor}} </p>
+        <p class="card-text">{{ item.data | date : 'dd/MM/yyyy HH:mm'}} </p>
+        <a href="#" class="btn btn-primary" (click)="redirectTo(item.id)">Visualizar NID</a>
+      </div>
+    </div>
   </div>
 </div>
