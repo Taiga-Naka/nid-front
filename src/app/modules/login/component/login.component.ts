@@ -13,8 +13,6 @@ import { Router } from "@angular/router";
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup = new FormGroup({});
-  isSubmit = false;
-  isSubmitAlert = false;
 
   newUser: User = new User();
 
@@ -43,16 +41,9 @@ export class LoginComponent implements OnInit {
   onSend(): void {
     if (!this.loginForm.valid) {
       console.error('Obrigatorio preencher campo!!');
-      this.isSubmitAlert = true;
-
-      if (this.isSubmitAlert) {
-        console.log('"Aparendo uma letra vermelha de Warning"');
-      }
       return;
     }
 
-    this.isSubmit = true;
-    this.isSubmitAlert = false;
     console.log('Enviando seguintes dados');
     console.log(this.loginForm.value);
 
@@ -68,7 +59,6 @@ export class LoginComponent implements OnInit {
         this.toastr.error('Senha ou e-mail invalidos', 'Erro!');
       }
     }).add(() => {
-      this.isSubmit = false;
       this.spinner.hide();
     });
   }

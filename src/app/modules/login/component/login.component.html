@@ -4,16 +4,6 @@
       <form class="form" [formGroup]="loginForm">
         <p class="heading">Login</p>
         <input class="input" placeholder="Email" type="text" formControlName="Email">
-        <div *ngIf="isSubmitAlert === true">
-          <div class="alertButton">
-              <p>Escreva o email certo!!</p>
-          </div>
-        </div>
-        <div *ngIf="isSubmit === true">
-          <div class="submitedButton">
-            <p>Email enviado com sucesso!!</p>
-          </div>
-        </div>
         <input class="input" placeholder="Senha" type="password" formControlName="Password">
         <button class="btn" (click)="onSend()">Enviar</button>
       </form>

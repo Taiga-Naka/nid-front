@@ -2,6 +2,14 @@
   <div class="p-2 flex-fill col-12 p-3">
     <h1>Relatório de Despesas</h1>
   </div>
+  <div class="card">
+    <form class="form">
+      <p class="heading">Filtragem</p>
+      <input class="input" placeholder="Funcionario" type="text">
+      <input class="input" placeholder="DD/MM/AAAA" type="date">
+      <input class="input" placeholder="Valor" type="number">
+    </form>
+  </div>
   <div class="mt-2 d-flex">
     <div class="card col-3" *ngFor="let item of relatorioDespesas">
       <div class="card-header">
@@ -9,8 +17,8 @@
       </div>
       <div class="card-body">
         <h5 class="card-title">{{ item.arquivoPdf }}</h5>
-        <p class="card-text">R$ {{ item.valor}} </p>
-        <p class="card-text">{{ item.data | date : 'dd/MM/yyyy HH:mm'}} </p>
+        <p class="card-text">R$ {{ item.valor }} </p>
+        <p class="card-text">{{ item.data | date : 'dd/MM/yyyy HH:mm' }} </p>
         <a href="#" class="btn btn-primary" (click)="redirectTo(item.id)">Visualizar NID</a>
       </div>
     </div>

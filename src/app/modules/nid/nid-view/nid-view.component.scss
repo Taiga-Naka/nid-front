@@ -1,0 +1,21 @@
+ .form {
+   display: flex;
+   flex-direction: row;
+   gap: 50px;
+
+   .heading {
+     color: black;
+     padding-bottom: 2em;
+     text-align: start;
+     font-weight: bold;
+   }
+
+   .input {
+     border-radius: 5px;
+     border: 1px solid whitesmoke;
+     background-color: whitesmoke;
+     outline: none;
+     padding: 0.7em;
+     transition: .4s ease-in-out;
+   }
+ }
