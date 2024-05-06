@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {RelatorioDespesa} from "../../../core/schemas/relatorio-despesa.interface";
-import {ToastrService} from "ngx-toastr";
+import { Component, OnInit } from '@angular/core';
+import { RelatorioDespesa } from "../../../core/schemas/relatorio-despesa.interface";
+import { ToastrService } from "ngx-toastr";
 import { RelatorioDespesaService } from '../../../core/services/relatorio-despesas.service';
+import { Router } from '@angular/router';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-nid-view',
@@ -9,27 +11,21 @@ import { RelatorioDespesaService } from '../../../core/services/relatorio-despes
   styleUrl: './nid-view.component.scss'
 })
 export class NidViewComponent implements OnInit {
-  relatorioDespesas: RelatorioDespesa[] = [];
+
+  relatorio: any;
 
   constructor(
-    private relatorioDespesaService: RelatorioDespesaService,
-    private toastr: ToastrService
-  ) {}
+    public modalRef: BsModalRef,
+  ) {
+   }
 
   ngOnInit() {
-    this.relatorioDespesaService.find().subscribe({
-      next: data => {
-        this.relatorioDespesas = data;
-        console.log(data);
-      },
-      error: err => {
-        console.log(err);
-        this.toastr.error('Erro!!')
-      }
-    })
+    console.log('opa');
+    console.log(this.relatorio);
+    this.relatorio = this.relatorio[0];
   }
 
-  redirectTo(id: string) {
-    console.log(id);
+  close() {
+    this.modalRef.hide();
   }
 }

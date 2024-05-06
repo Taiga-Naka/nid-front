@@ -10,8 +10,11 @@ import { environment } from "../../enviroment/environment";
 export class RelatorioDespesaService {
   constructor(private http: HttpClient) {}
 
-  find(): Observable<RelatorioDespesa[]> {
-    return this.http.get<RelatorioDespesa[]>(environment.apiUrl + 'RelatorioDespesas');
+  find(id?: string): Observable<RelatorioDespesa[]> {
+    return this.http.get<RelatorioDespesa[]>(
+      environment.apiUrl + 'RelatorioDespesas?' +
+      (id != null ? "id=" + id : "")
+    );
   }
 
   create(body: RelatorioDespesa): Observable<RelatorioDespesa> {

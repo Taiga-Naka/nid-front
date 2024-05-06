@@ -1,26 +1,28 @@
-<div class="d-flex row col-12">
-  <div class="p-2 flex-fill col-12 p-3">
-    <h1>Relatório de Despesas</h1>
-  </div>
-  <div class="card">
-    <form class="form">
-      <p class="heading">Filtragem</p>
-      <input class="input" placeholder="Funcionario" type="text">
-      <input class="input" placeholder="DD/MM/AAAA" type="date">
-      <input class="input" placeholder="Valor" type="number">
-    </form>
-  </div>
-  <div class="mt-2 d-flex">
-    <div class="card col-3" *ngFor="let item of relatorioDespesas">
-      <div class="card-header">
-        {{ item.funcionario.nome }}
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">{{ item.arquivoPdf }}</h5>
-        <p class="card-text">R$ {{ item.valor }} </p>
-        <p class="card-text">{{ item.data | date : 'dd/MM/yyyy HH:mm' }} </p>
-        <a href="#" class="btn btn-primary" (click)="redirectTo(item.id)">Visualizar NID</a>
-      </div>
+
+
+<div class="modal-header d-flex justify-content-between">
+  <h4 class="modal-title pull-left">
+    <i class="fas fa-ticket-alt"></i> Relatorio de Despesas
+  </h4>
+  <button type="button" class="btn" (click)="close()">
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+<div class="modal-body modal-scrollable justify-content-center" id="printableArea">
+  <div class="col-12">
+    <div class="card-header">
+      <h5 class="card-title">Funcionario que solicitou: {{ relatorio.funcionario.nome | titlecase}}</h5>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title"> Relatorio: {{ relatorio.arquivoPdf }}</h5>
+      <p class="card-text">Valor Total da Nid: R$ {{ relatorio.valor }} </p>
+      <p class="card-text">Data de Criacao: {{ relatorio.data | date : 'dd/MM/yyyy HH:mm' }} </p>
     </div>
   </div>
+
+</div>
+<div class="modal-footer justify-content-between">
+  <button type="button" class="btn btn-secondary" (click)="close()">
+    Fechar
+  </button>
 </div>

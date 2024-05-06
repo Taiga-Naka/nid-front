@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSend(): void {
-    if (!this.loginForm.valid) {
+    if (this.loginForm.invalid) {
       console.error('Obrigatorio preencher campo!!');
       return;
     }

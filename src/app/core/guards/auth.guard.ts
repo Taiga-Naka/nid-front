@@ -18,7 +18,7 @@ export class AuthGuard {
       if (currentUser.message != undefined) {
         this.authService.logout();
         location.reload();
-        this.router.navigate(["/inicio"]);
+        this.router.navigate(["/login"]);
         return false;
       }
 
