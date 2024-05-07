@@ -3,13 +3,15 @@
     <h1>Relatório de Despesas</h1>
   </div>
   <div class="card row">
-    <form [formGroup]="formGroupFiltragem" (ngSubmit)="formGroupFiltragem.valid && getAllData()" class="form col-8">
+    <form [formGroup]="formGroupFiltragem" (ngSubmit)="formGroupFiltragem.valid && getAllData()" class="form col-3">
       <p class="h2">Filtragem</p>
-      <input class="input" placeholder="Funcionario" formControlName="idFuncionario" type="text">
+      <div class="input-group mb-3 row-3">
+        <input type="text" class="form-control" placeholder="Funcionario" formControlName="idFuncionario" aria-label="Funcionario" aria-describedby="basic-addon1">
+      </div>
 <!--      <input class="input" placeholder="DD/MM/AAAA" formControlName="data" type="date">-->
 <!--      <input class="input" placeholder="Valor" formControlName="telefone" type="text" mask="9999-99-99">-->
       <button class="btn btn-primary">Pesquisar</button>
-      <button (click)="limparFiltro()">Limpar</button>
+      <button class="btn btn-secondary" (click)="limparFiltro()">Limpar</button>
     </form>
     <a class="btn btn-primary col-3 mt-3" (click)="openAddModal()">Solicitar uma NID</a>
   </div>
