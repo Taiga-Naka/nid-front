@@ -58,6 +58,7 @@ export class NidGridComponent {
 
   limparFiltro() {
     this.formGroupFiltragem.reset();
+    this.getAllData();
   }
 
   redirectTo(data: any) {
