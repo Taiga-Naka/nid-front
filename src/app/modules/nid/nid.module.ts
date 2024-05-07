@@ -6,12 +6,14 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { NidAssignComponent } from "./nid-assign/nid-assign.component";
 import { NidGridComponent } from "./nid-grid/nid-grid.component";
 import { ModalModule } from "ngx-bootstrap/modal";
+import { NidAddComponent } from "./nid-add/nid-add.component";
 
 @NgModule({
   declarations: [
     NidViewComponent,
     NidAssignComponent,
     NidGridComponent,
+    NidAddComponent
   ],
   imports: [
     NidRoutingModule,

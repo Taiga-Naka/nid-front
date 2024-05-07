@@ -6,10 +6,12 @@ import { AppComponent } from './app.component';
 import {CoreModule} from "./core/core.module";
 import {NgxSpinnerModule} from "ngx-spinner";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {ToastrModule} from "ngx-toastr";
 import { LayoutsComponent } from './layouts/layouts.component';
 import { LayoutsModule } from './layouts/layouts.module';
+import { NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-mask';
+import { ApiInterceptor } from './core/interceptors/api.interceptor';
 
 @NgModule({
   declarations: [
@@ -23,10 +25,15 @@ import { LayoutsModule } from './layouts/layouts.module';
     AppRoutingModule,
     LayoutsModule,
     CoreModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' }),
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
+    provideEnvironmentNgxMask(),
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })

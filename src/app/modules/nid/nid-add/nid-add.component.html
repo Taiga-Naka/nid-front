@@ -1,1 +1,32 @@
-<p>nid-add works!</p>
+<div class="modal-header d-flex justify-content-between">
+  <h4 class="modal-title pull-left">
+    <i class="fas fa-ticket-alt"></i> Relatorio de Despesas
+  </h4>
+  <button type="button" class="btn" (click)="close()">
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+<div class="modal-body modal-scrollable justify-content-center" id="printableArea">
+  <div class="col-12">
+    <form class="form-horizontal d-flex col-12 row justify-content-between" [formGroup]="addForm"
+      (ngSubmit)="createNid()">
+      <div class="col-12 mt-3">
+        <span>Nome do PDF</span>
+        <input type="search" class="form-control mt-1" id="searchInput" placeholder="Nome do pdf" formControlName="ArquivoPdf" />
+      </div>
+      <div class="col-12 mt-3">
+        <span>Valor total da NID</span>
+        <input type="search" class="form-control mt-1" id="searchInput" placeholder="Valor da nid" formControlName="Valor" />
+      </div>
+    </form>
+  </div>
+
+</div>
+<div class="modal-footer justify-content-between">
+  <button type="button" class="btn btn-secondary" (click)="close()">
+    Fechar
+  </button>
+  <button type="button" class="btn btn-primary" (click)="createNid()">
+    Salvar
+  </button>
+</div>

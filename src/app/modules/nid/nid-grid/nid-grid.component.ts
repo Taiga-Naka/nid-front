@@ -5,6 +5,7 @@ import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { NidViewComponent } from '../nid-view/nid-view.component';
+import { NidAddComponent } from '../nid-add/nid-add.component';
 
 @Component({
   selector: 'app-nid-grid',
@@ -24,6 +25,10 @@ export class NidGridComponent {
   ) {}
 
   ngOnInit() {
+    this.getAllData();
+  }
+
+  getAllData(){
     this.relatorioDespesaService.find().subscribe({
       next: data => {
         this.relatorioDespesas = data;
@@ -45,5 +50,17 @@ export class NidGridComponent {
         "modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md",
       ignoreBackdropClick: true,
     });
+  }
+
+  openAddModal() {
+    this.modalRef = this.modalService.show(NidAddComponent, {
+      class:
+        "modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md",
+      ignoreBackdropClick: true,
+    });
+
+    this.modalRef.onHide?.subscribe((e) =>{
+      this.getAllData();
+    })
   }
 }
