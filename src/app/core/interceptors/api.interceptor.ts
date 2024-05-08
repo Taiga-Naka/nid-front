@@ -23,6 +23,7 @@ export class ApiInterceptor implements HttpInterceptor {
     return next.handle(authReq).pipe(
       catchError((err: any) => {
         if (err instanceof HttpErrorResponse) {
+          console.log(err);
           if (err.status === 401) {
             this.toastr.error(
               "Sessão expirada, faça login novamente",

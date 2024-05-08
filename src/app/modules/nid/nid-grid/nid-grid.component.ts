@@ -6,7 +6,9 @@ import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {NidViewComponent} from '../nid-view/nid-view.component';
 import {NidAddComponent} from '../nid-add/nid-add.component';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { FuncinarioService } from '../../../core/services/funcionario.service';
+import { RelatorioDespesaAddModel } from '../../../core/models/relatorio-despesa.model';
 
 @Component({
   selector: 'app-nid-grid',
@@ -18,9 +20,13 @@ export class NidGridComponent {
   modalRef?: BsModalRef;
   formGroupFiltragem: FormGroup = new FormGroup({});
 
+  funcionarios: any[] = [];
+
+  filterForm: FormGroup = new FormGroup({});
 
   constructor(
     private relatorioDespesaService: RelatorioDespesaService,
+    private funcinarioService: FuncinarioService,
     private toastr: ToastrService,
     private router: Router,
     private modalService: BsModalService,
@@ -28,22 +34,46 @@ export class NidGridComponent {
   ) {}
 
   ngOnInit() {
-    this.formGroupFiltragem = this.formBuilder.group({
-      idFuncionario: [null],
-      // data: ,
-      // telefone: [null],
-    });
+    this.buildForm(new RelatorioDespesaAddModel());
+    this.getAllFuncionarios();
     this.getAllData();
   }
 
+  buildForm(add: RelatorioDespesaAddModel) {
+    this.filterForm = this.formBuilder.group({
+      idFuncionario: [add.FuncionarioId],
+      ArquivoPdf: [add.ArquivoPdf, Validators.required],
+      Valor: [add.valor, Validators.required],
+    });
+  }
+
+
+  getAllFuncionarios() {
+    this.funcinarioService.find().subscribe({
+      next: data => {
+        this.funcionarios = data;
+        console.log(data);
+      },
+      error: err => {
+        console.log(err);
+        this.toastr.error('Erro!!')
+      }
+    })
+  }
+
   getAllData(){
-    if(this.formGroupFiltragem.value.idFuncionario != null) {
-      this.relatorioDespesaService.find(this.formGroupFiltragem.value.idFuncionario)
-    } else {
-      console.log('TA NULO SA PORRA')
-      this.limparFiltro()
-    }
-    this.relatorioDespesaService.find().subscribe({
+    // if(this.formGroupFiltragem.value.idFuncionario != null) {
+    //   this.relatorioDespesaService.find(this.formGroupFiltragem.value.idFuncionario)
+    // } else {
+    //   console.log('TA NULO SA PORRA')
+    //   this.limparFiltro()
+    // }
+
+
+    var id = this.filterForm.value.id;
+    var funcionarioId = this.filterForm.value.idFuncionario;
+
+    this.relatorioDespesaService.find(id, funcionarioId).subscribe({
       next: data => {
         this.relatorioDespesas = data;
         console.log(data);

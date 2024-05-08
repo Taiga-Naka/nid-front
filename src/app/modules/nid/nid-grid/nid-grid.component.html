@@ -5,23 +5,28 @@
   <div class="col">
     <p class="h2 mb-3 mt-3">Filtragem</p>
   </div>
-    <form [formGroup]="formGroupFiltragem" (ngSubmit)="formGroupFiltragem.valid && getAllData()">
-      <div class="col-4">
-        <div class="col-6">
+    <form [formGroup]="filterForm" (ngSubmit)="getAllData()">
+      <div class="col-12 row">
+        <div class="col-10">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Funcionário" formControlName="idFuncionario" aria-label="Funcionario" aria-describedby="basic-addon1">
+            <ng-select *ngIf="funcionarios"
+            [items]="funcionarios"
+            bindLabel="nome"
+            bindValue="id"
+            placeholder="Selecione um funcionário"
+            formControlName="idFuncionario">
+          </ng-select>
           </div>
+
         </div>
-  <!--      <input class="input" placeholder="DD/MM/AAAA" formControlName="data" type="date">-->
-  <!--      <input class="input" placeholder="Valor" formControlName="telefone" type="text" mask="9999-99-99">-->
-        <div class="mt-3 mb-5">
-          <button class="btn btn-success col-2">Pesquisar</button>
-          <button class="btn btn-secondary col-2" (click)="limparFiltro()">Limpar</button>
+        <div class="col-2 d-flex justify-content-between">
+          <button class="btn btn-success col-6">Pesquisar</button>
+          <button class="btn btn-secondary col-5" (click)="limparFiltro()">Limpar</button>
         </div>
       </div>
     </form>
-  <div class="d-flex flex-col">
-    <a class="btn btn-primary col-3 mt-3" (click)="openAddModal()">Solicitar uma NID</a>
+  <div class="d-flex  mt-5 mb-3">
+    <a class="btn btn-primary col-3" (click)="openAddModal()">Solicitar uma NID</a>
   </div>
   <div class="mt-2 d-flex row">
     <div class="card col-3" *ngFor="let item of relatorioDespesas">
