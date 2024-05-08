@@ -1,13 +1,12 @@
-import { Component } from '@angular/core';
-import { RelatorioDespesa } from '../../../core/schemas/relatorio-despesa.interface';
-import { RelatorioDespesaService } from '../../../core/services/relatorio-despesas.service';
-import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
-import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
-import { NidViewComponent } from '../nid-view/nid-view.component';
-import { NidAddComponent } from '../nid-add/nid-add.component';
+import {Component} from '@angular/core';
+import {RelatorioDespesa} from '../../../core/schemas/relatorio-despesa.interface';
+import {RelatorioDespesaService} from '../../../core/services/relatorio-despesas.service';
+import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
+import {ToastrService} from 'ngx-toastr';
+import {Router} from '@angular/router';
+import {NidViewComponent} from '../nid-view/nid-view.component';
+import {NidAddComponent} from '../nid-add/nid-add.component';
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {getDate} from "ngx-bootstrap/chronos/utils/date-getters";
 
 @Component({
   selector: 'app-nid-grid',
@@ -79,7 +78,7 @@ export class NidGridComponent {
       ignoreBackdropClick: true,
     });
 
-    this.modalRef.onHide?.subscribe((e) =>{
+    this.modalRef.onHide?.subscribe(() => {
       this.getAllData();
     })
   }
