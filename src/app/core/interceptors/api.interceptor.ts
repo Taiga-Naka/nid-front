@@ -37,6 +37,9 @@ export class ApiInterceptor implements HttpInterceptor {
               "Erro"
             );
           }
+          if(err.status === 500) {
+            this.toastr.error(err.error)
+          }
         }
         return throwError(() => new Error("Erro"));
       })
