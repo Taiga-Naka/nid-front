@@ -3,6 +3,9 @@ import { Route, Router } from '@angular/router';
 import { RelatorioDespesaService } from '../../../core/services/relatorio-despesas.service';
 import { TokenRelatorioDespesasService } from '../../../core/services/token.service';
 import { ToastrService } from 'ngx-toastr';
+import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
+import {NidViewComponent} from "../nid-view/nid-view.component";
+import {NidGridComponent} from "../nid-grid/nid-grid.component";
 
 @Component({
   selector: 'app-nid-assign',
@@ -14,6 +17,7 @@ export class NidAssignComponent {
   relatorioToken: string = '';
 
   isValidToken: any;
+  modalRef?: BsModalRef;
 
   relatorioStatus = [
     // {id: 1, name: 'Pendente'},
@@ -25,9 +29,10 @@ export class NidAssignComponent {
 
   constructor(
     private route: Router,
-    private relatorioDespesaService: RelatorioDespesaService,
+    // public getData: NidGridComponent,
     private tokenService: TokenRelatorioDespesasService,
-    private toaster: ToastrService
+    private toaster: ToastrService,
+    // private modalService: BsModalService,
   ) {
     var token = this.route.url.split('/')[2];
 
@@ -53,6 +58,7 @@ export class NidAssignComponent {
    }
 
   ngOnInit(): void {
+    // this.getData.getAllData();  NAO SEI OQ VOU COLOCAR AQUIII
   }
 
   assingRelatorio(){
@@ -70,5 +76,10 @@ export class NidAssignComponent {
         console.log(err);
       }
     });
+  }
+
+  toReturnSelectedStatus(selectedStatus: number)  {
+    this.selectedStatus = selectedStatus;
+    this.assingRelatorio();
   }
 }
