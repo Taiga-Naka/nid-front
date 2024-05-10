@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {NidViewComponent} from "../nid-view/nid-view.component";
 import {NidGridComponent} from "../nid-grid/nid-grid.component";
+import {RelatorioDespesa} from "../../../core/schemas/relatorio-despesa.interface";
 
 @Component({
   selector: 'app-nid-assign',
@@ -15,6 +16,8 @@ import {NidGridComponent} from "../nid-grid/nid-grid.component";
 export class NidAssignComponent {
 
   relatorioToken: string = '';
+
+  // relatorioDespesas: RelatorioDespesa[] = [];
 
   isValidToken: any;
   modalRef?: BsModalRef;
@@ -32,7 +35,7 @@ export class NidAssignComponent {
     // public getData: NidGridComponent,
     private tokenService: TokenRelatorioDespesasService,
     private toaster: ToastrService,
-    // private modalService: BsModalService,
+    private modalService: BsModalService,
   ) {
     var token = this.route.url.split('/')[2];
 
@@ -58,7 +61,7 @@ export class NidAssignComponent {
    }
 
   ngOnInit(): void {
-    // this.getData.getAllData();  NAO SEI OQ VOU COLOCAR AQUIII
+
   }
 
   assingRelatorio(){
@@ -78,8 +81,19 @@ export class NidAssignComponent {
     });
   }
 
-  toReturnSelectedStatus(selectedStatus: number)  {
-    this.selectedStatus = selectedStatus;
+  // redirectTo(data: any) {
+  //   this.modalRef = this.modalService.show(NidViewComponent, {
+  //     initialState: {
+  //       relatorio: [data],
+  //     },
+  //     class:
+  //       "modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md",
+  //     ignoreBackdropClick: true,
+  //   });
+  // }
+
+  toReturnSelectedStatus(status: number)  {
+    this.selectedStatus = status;
     this.assingRelatorio();
   }
 }
