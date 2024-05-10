@@ -16,6 +16,12 @@ import { RelatorioDespesaAddModel } from '../../../core/models/relatorio-despesa
   styleUrl: './nid-grid.component.css'
 })
 export class NidGridComponent {
+  page = 1;
+  maxSize = 3;
+  // collectionSize = RelatorioDespesa
+  perPage = 6;
+  // calculateTotalPages =  this.collectionSize/this.perPage;
+
   relatorioDespesas: RelatorioDespesa[] = [];
   modalRef?: BsModalRef;
   formGroupFiltragem: FormGroup = new FormGroup({});
