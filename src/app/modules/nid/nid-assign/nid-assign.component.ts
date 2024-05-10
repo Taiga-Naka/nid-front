@@ -72,8 +72,14 @@ export class NidAssignComponent {
 
     this.tokenService.assinarRelatorio(this.relatorioToken, this.selectedStatus).subscribe({
       next: data => {
-        this.toaster.success('Relatório assinado com sucesso');
-        this.route.navigate(['/']);
+        if(this.selectedStatus == 2) {
+          this.toaster.success('Relatório assinado com sucesso');
+          this.route.navigate(['/']);
+        }
+        if(this.selectedStatus == 3) {
+          this.toaster.success('Relatório reprovado com sucesso');
+          this.route.navigate(['/']);
+        }
       },
       error: err => {
         console.log(err);
